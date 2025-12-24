@@ -13,11 +13,13 @@ class TodoPage():
         self.todo_items = page.get_by_test_id("todo-item")
         self.todo_count = page.locator(".todo-count strong")
 
-        self.all_tab = page.locator(".selected")
+        self.all_tab = page.get_by_role("link", name="All")
 
-        self.active_tab = page.get_by_text("Active")
+        self.active_tab = page.get_by_role("link", name="Active")
         self.completed_tab = page.get_by_role("link", name="Completed")
         self.clear_completed_button = page.get_by_text("Clear completed")
+
+        self.edit_input = page.locator(".edit")
 
 
 
@@ -131,4 +133,24 @@ class TodoPage():
 
         except Exception as e:
             print(f"Exception while checking completed item: {e}")
+
+    def isAllTabSelected(self):
+        try:
+            return "selected" in (self.all_tab.get_attribute("class") or "")
+        except Exception as e:
+            print(f"Exception while checking active tab: {e}")
+
+    def cancelEditTodo(self, index, newText):
+        try:
+            item = self.todo_items.nth(index)
+            item.dblclick()
+            self.edit_input.fill(newText)
+            self.page.keyboard.press("Escape")
+
+        except Exception as e:
+            print(f"Exception while editing item: {e}")
+
+    def getTotalTodoCount(self):
+        return self.todo_items.count()
+
 
