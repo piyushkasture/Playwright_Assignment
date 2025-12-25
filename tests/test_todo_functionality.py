@@ -1,18 +1,15 @@
-import pytest
-from playwright.sync_api import expect
 from pages.TodoPage import TodoPage
 from utils.data_reader import test_data
 
-# ---------------- TC001 ----------------
+# 1
 def test_add_single_todo_item(page, test_data):
     todo = TodoPage(page)
     todo.goto()
     todo.addTodo(test_data["addTodo"]["single"]["text"])
     assert todo.getActiveTodoCount() == 1
-    # expect(todo.getActiveTodoCount()).to_have_count(1)
-    # expect(login_page.get_login_error()).to_be_visible(timeout=3000)
-#
-# ---------------- TC002 ----------------
+
+
+# 2
 def test_add_multiple_todo_items(page, test_data):
     todo = TodoPage(page)
     todo.goto()
@@ -22,7 +19,7 @@ def test_add_multiple_todo_items(page, test_data):
     assert todo.getActiveTodoCount() == len(test_data["addTodo"]["multiple"])
 
 
-# ---------------- TC003 ----------------
+# 3
 def test_add_todo_with_special_character(page, test_data):
     todo = TodoPage(page)
     todo.goto()
@@ -33,7 +30,7 @@ def test_add_todo_with_special_character(page, test_data):
     assert todo.getTodoText(0) == text
 
 
-# ---------------- TC004 ----------------
+# 4
 def test_add_empty_todo(page, test_data):
     todo = TodoPage(page)
     todo.goto()
@@ -42,7 +39,7 @@ def test_add_empty_todo(page, test_data):
     assert todo.getActiveTodoCount() == 0
 
 
-# ---------------- TC005 ----------------
+# 5
 def test_add_very_long_todo_text(page, test_data):
     todo = TodoPage(page)
     todo.goto()
@@ -51,24 +48,24 @@ def test_add_very_long_todo_text(page, test_data):
     assert todo.getActiveTodoCount() == 1
 
 
-# ---------------- TC006 ----------------
+# 6
 def test_mark_single_todo_complete(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("Toggle test")
+    todo.addTodo(test_data["addTodo"]["single"]["text"])
     todo.toggleTodo(test_data["toggleTodo"]["complete"]["index"])
 
     assert todo.isTodoCompleted(0)
 
 
-# ---------------- TC007 ----------------
-def test_mark_multiple_todos_complete(page):
+# 7
+def test_mark_multiple_todos_complete(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("A")
-    todo.addTodo("B")
+    todo.addTodo(test_data["addTodo"]["single"]["text"])
+    todo.addTodo(test_data["addTodo"]["single"]["text"])
 
     todo.toggleTodo(0)
     todo.toggleTodo(1)
@@ -77,25 +74,25 @@ def test_mark_multiple_todos_complete(page):
     assert todo.isTodoCompleted(1)
 
 
-# ---------------- TC008 ----------------
-def test_unmark_completed_todo(page):
+# 8
+def test_unmark_completed_todo(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("Unmark")
+    todo.addTodo(test_data["addTodo"]["single"]["text"])
     todo.toggleTodo(0)
     todo.toggleTodo(0)
 
     assert not todo.isTodoCompleted(0)
 
 
-# ---------------- TC009 ----------------
-def test_complete_all_todos(page):
+# 9
+def test_complete_all_todos(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("1")
-    todo.addTodo("2")
+    todo.addTodo(test_data["editTodo"]["validEdit"]["original"])
+    todo.addTodo(test_data["editTodo"]["validEdit"]["updated"])
 
     todo.toggleTodo(0)
     todo.toggleTodo(1)
@@ -103,15 +100,15 @@ def test_complete_all_todos(page):
     assert todo.getActiveTodoCount() == 0
 
 
-# ---------------- TC010–TC013 ----------------
+# 10
 def test_edit_todo_text(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
     todo.addTodo(test_data["editTodo"]["validEdit"]["original"])
-    todo.editTodo(0, test_data["editTodo"]["validEdit"]["updated"])
+    todo.editTodo(0, test_data["editTodo"]["validEdit"]["updatedText"])
 
-    assert todo.getTodoText(0) == test_data["editTodo"]["validEdit"]["updated"]
+    assert todo.getTodoText(0) == test_data["editTodo"]["validEdit"]["updatedText"]
 
 
 # 11
@@ -147,54 +144,43 @@ def test_edit_to_empty_text(page, test_data):
     todo.addTodo(original)
     todo.editTodo(0, test_data["editTodo"]["emptyEdit"]["updated"])
 
-    # TodoMVC keeps original text if empty edit attempted
     assert todo.getActiveTodoCount() == 0
-
-
-
 
 # ---------------- TC014 ----------------
 def test_delete_single_todo(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("Delete me")
+    todo.addTodo(test_data["deleteText"]["text"])
     todo.deleteTodo(test_data["deleteTodo"]["single"]["index"])
 
     assert todo.getActiveTodoCount() == 0
 
 
 # 15
-def test_clear_completed_todos(page):
+def test_clear_completed_todos(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    # Add multiple todos
-    todo.addTodo("Task 1")
-    todo.addTodo("Task 2")
-    todo.addTodo("Task 3")
+    for item in test_data["addTodo"]["multiple"]:
+        todo.addTodo(item)
 
-    # Mark some as completed
     todo.toggleTodo(0)
     todo.toggleTodo(2)
 
-    # Clear completed todos
     todo.clearCompleted()
 
-    # Only active todo should remain
     assert todo.getActiveTodoCount() == 1
 
 
 # 16
-def test_delete_all_todos_individually(page):
+def test_delete_all_todos_individually(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("One")
-    todo.addTodo("Two")
-    todo.addTodo("Three")
+    for item in test_data["addTodo"]["multiple"]:
+        todo.addTodo(item)
 
-    # Delete todos one by one (always index 0)
     todo.deleteTodo(0)
     todo.deleteTodo(0)
     todo.deleteTodo(0)

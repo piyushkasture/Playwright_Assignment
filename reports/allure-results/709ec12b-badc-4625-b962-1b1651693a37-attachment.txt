@@ -1,4 +1,0 @@
-Exception while going to website: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.playwright.dev/todomvc/#/
-Call log:
-  - navigating to "https://demo.playwright.dev/todomvc/#/", waiting until "load"
-

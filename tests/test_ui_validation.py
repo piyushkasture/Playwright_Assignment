@@ -41,34 +41,32 @@ def test_footer_visibility_rules(page):
 
 
 # 29
-def test_clear_completed_button(page):
+def test_clear_completed_button(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("Task 1")
+    todo.addTodo(test_data["addTodo"]["multiple"][0])
     todo.toggleTodo(0)
 
     expect(todo.clear_completed_button).to_be_visible()
 
 # 30
-def test_checkbox_interaction(page):
+def test_checkbox_interaction(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("Task 1")
+    todo.addTodo(test_data["addTodo"]["multiple"][1])
 
-    # Click checkbox
     todo.toggleTodo(0)
 
-    # Completed class should be applied
     assert todo.isTodoCompleted(0)
 
 # 31
-def test_hover_effect_delete_button(page):
+def test_hover_effect_delete_button(page, test_data):
     todo = TodoPage(page)
     todo.goto()
 
-    todo.addTodo("Hover Task")
+    todo.addTodo(test_data["deleteText"]["deleteHover"])
 
     item = todo.todo_items.nth(0)
     delete_button = item.locator(".destroy")
@@ -76,7 +74,7 @@ def test_hover_effect_delete_button(page):
     # Hover over todo item
     item.hover()
 
-    # Delete (X) button should be visible
+    # Delete button should be visible
     expect(delete_button).to_be_visible()
 
 # 32
@@ -94,10 +92,8 @@ def test_input_field_behavior(page):
     todo = TodoPage(page)
     todo.goto()
 
-    # Focus input
     todo.todo_input.focus()
     expect(todo.todo_input).to_be_focused()
 
-    # Blur input by clicking elsewhere
     page.locator("header h1").click()
     expect(todo.todo_input).not_to_be_focused()

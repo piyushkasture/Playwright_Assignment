@@ -2,11 +2,11 @@
   "addTodo": {
     "single": { "text": "Learn Playwright" },
     "multiple": [
-      "Write test cases",
-      "Implement POM",
-      "Run tests on Chrome"
+      "Task 1",
+      "Task 2",
+      "Task 2"
     ],
-    "specialCharacters": { "text": "@#$%^&*()_+ Todo!" },
+    "specialCharacters": { "text": "@#$%^&*()_+" },
     "longText": {
       "text": "This is a very long todo text created to validate how the application handles large input strings without breaking UI or functionality"
     },
@@ -15,13 +15,19 @@
   "editTodo": {
     "validEdit": {
       "original": "Learn Python",
-      "updated": "Learn Playwright with Python"
+      "updated": "Learn Playwright with Python",
+      "updatedText": "Learn Software testing with python"
+
     },
     "emptyEdit": { "updated": "" }
   },
   "toggleTodo": {
     "complete": { "index": 0 },
     "uncomplete": { "index": 0 }
+  },
+  "deleteText": {
+    "text": "Delete me",
+    "deleteHover": "Hover Task"
   },
   "deleteTodo": {
     "single": { "index": 0 }
@@ -32,5 +38,9 @@
   "uiValidation": {
     "placeholderText": "What needs to be done?",
     "headerText": "todos"
+  },
+  "tabs": {
+    "active": "Active Task",
+    "complete": "Completed Task"
   }
 }
