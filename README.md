@@ -30,8 +30,6 @@ This framework is designed to:
 
 ## 📦 Prerequisites
 
-Before setting up the project, ensure you have:
-
 - **Python:** 3.8 or higher
 - **pip:** Python package manager (comes with Python)
 - **Git:** For version control
