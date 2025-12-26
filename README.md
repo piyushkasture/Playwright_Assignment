@@ -40,6 +40,7 @@ To verify your Python installation, run:
 python --version
 pip --version
 ```
+```
 
 ## 🚀 Installation
 
@@ -65,7 +66,7 @@ After installing the requirements, install the required browsers:
 ```bash
 playwright install
 ```
-
+```
 
 ## ⚙️ Configuration
 
@@ -86,6 +87,7 @@ playwright install
 | `--alluredir=` | Directory for Allure results |
 | `-n 2` | Run 2 parallel workers | 
 
+```
 
 ## 🧪 Running Tests
 
@@ -139,6 +141,9 @@ pytest -n 4
 ```bash
 pytest -s -v
 ```
+
+```
+
 ## 📊 Test Reports
 
 ### HTML Report
@@ -160,6 +165,7 @@ Generate and view Allure report:
 # Generate Allure report
 allure generate reports/allure-results -o reports/allure-report --clean
 
+```
 ```
 
 ## ✨ Framework Features
