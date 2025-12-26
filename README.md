@@ -190,7 +190,7 @@ The framework tests:
 | **UI Validation** | Header text, styling, input fields, placeholders |
 | **Functionality** | Add todos, delete todos, mark complete |
 | **Filter Tabs** | All, Active, Completed filters |
-| **Reset Completed** | Reset completed todos functionality |
+| **Reset Tab** | Reset all completed todos functionality |
 | **Checkbox Interaction** | Mark/unmark todos |
 | **Delete Button** | Hover effects, delete functionality |
 | **Footer Visibility** | Footer visibility based on state |
