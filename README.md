@@ -122,7 +122,7 @@ pytest tests/test_ui_validation.py
 ```
 
 ### Step 4: Run Specific Test
-``````bash
+```bash
 pytest tests/test_ui_validation.py::test_header_text_and_styling
 ```
 
