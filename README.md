@@ -7,7 +7,6 @@ A comprehensive Playwright automation framework for testing the TodoMVC applicat
 - [Project Overview](#project-overview)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Project Structure](#project-structure)
 - [Configuration](#configuration)
 - [Running Tests](#running-tests)
 - [Test Reports](#test-reports)
