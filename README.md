@@ -45,8 +45,6 @@ pip --version
 
 ## 🚀 Installation
 
-Follow these steps to set up the project:
-
 ### Step 1: Clone the Repository
 ```bash
 git clone <repository-url>
