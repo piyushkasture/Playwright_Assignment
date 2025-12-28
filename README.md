@@ -2,7 +2,7 @@
 
 A comprehensive Playwright automation framework for testing the TodoMVC application. This project demonstrates a robust, maintainable test framework with cross-browser testing capabilities, detailed reporting, and parallel execution.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Project Overview](#project-overview)
 - [Prerequisites](#prerequisites)
@@ -14,7 +14,7 @@ A comprehensive Playwright automation framework for testing the TodoMVC applicat
 
 ---
 
-## 🎯 Project Overview
+## Project Overview
 
 This framework is designed to:
 - **Test TodoMVC Application** with comprehensive test coverage
@@ -28,7 +28,7 @@ This framework is designed to:
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 - **Python:** 3.8 or higher
 - **pip:** Python package manager (comes with Python)
@@ -41,7 +41,7 @@ python --version
 pip --version
 ```
 
-## 🚀 Installation
+## Installation
 
 ### Step 1: Clone the Repository
 ```bash
@@ -67,7 +67,7 @@ playwright install
 ```
 
 
-## ⚙️ Configuration
+## Configuration
 
 ### pytest.ini Configuration
 
@@ -87,7 +87,7 @@ playwright install
 | `-n 2` | Run 2 parallel workers | 
 
 
-## 🧪 Running Tests
+## Running Tests
 
 ### Step 1: Basic Test Run
 Run all tests with default configuration:
@@ -129,7 +129,7 @@ pytest --headed=false
 
 ### Step 6: Run Tests with Custom Parallel Workers
 ```bash
-pytest -n 4
+pytest -n 2
 ```
 
 ### Step 7: Run Tests in Debug Mode
@@ -139,7 +139,7 @@ pytest -n 4
 ```bash
 pytest -s -v
 ```
-## 📊 Test Reports
+## Test Reports
 
 ### HTML Report
 
@@ -162,7 +162,7 @@ allure generate reports/allure-results -o reports/allure-report --clean
 
 ```
 
-## ✨ Framework Features
+## Framework Features
 
 ### Page Object Model (POM)
 All page interactions are encapsulated in page classes:
@@ -196,7 +196,7 @@ The framework tests:
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Issue: Playwright browsers not installed
 **Solution:**
@@ -209,7 +209,7 @@ playwright install
 
 ---
 
-## 📝 Best Practices
+## Best Practices
 
 1. **Use Page Object Model:** Always create new class for new page implementation
 2. **Data-Driven Tests:** Use `testdata/data.json` for test data
@@ -217,4 +217,3 @@ playwright install
 4. **Meaningful Assertions:** Use clear assertion messages
 5. **Test Independence:** Each test should be independent
 6. **Code Reusability:** Put common methods in `BasePage`
-
