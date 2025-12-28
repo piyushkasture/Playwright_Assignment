@@ -47,7 +47,7 @@ class TodoPage():
             item = self.todo_items.nth(index)
             checkbox = item.locator(".toggle")
             checkbox.click()
-            
+
         except Exception as e:
             print(f"Exception while toggling item: {e}")
             raise
