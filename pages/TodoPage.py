@@ -50,7 +50,7 @@ class TodoPage():
             checkbox.click()
 
                 # Simple stability wait
-            self.page.wait_for_timeout(200)
+            # self.page.wait_for_timeout(200)
             #
             # checkbox = self.todo_items.nth(index).locator(".toggle")
             # checkbox.check()

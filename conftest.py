@@ -3,6 +3,7 @@ import pytest
 from slugify import slugify
 import allure
 
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     pytest_html = item.config.pluginmanager.getplugin("html")
