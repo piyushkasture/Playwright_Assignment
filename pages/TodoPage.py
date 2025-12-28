@@ -24,7 +24,6 @@ class TodoPage():
 
 
     #Methods
-    # self.base_pagebase_page.navigate("https://demo.playwright.dev/todomvc/#/")
     def goto(self):
         try:
             self.base_page.navigate("https://demo.playwright.dev/todomvc/#/")
@@ -48,12 +47,7 @@ class TodoPage():
             item = self.todo_items.nth(index)
             checkbox = item.locator(".toggle")
             checkbox.click()
-
-                # Simple stability wait
-            # self.page.wait_for_timeout(200)
-            #
-            # checkbox = self.todo_items.nth(index).locator(".toggle")
-            # checkbox.check()
+            
         except Exception as e:
             print(f"Exception while toggling item: {e}")
             raise
