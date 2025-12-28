@@ -2,13 +2,19 @@ from pathlib import Path
 import pytest
 from slugify import slugify
 import allure
+from pages.TodoPage import TodoPage
 
+
+@pytest.fixture(scope="function")
+def website_setup(page):
+    todo = TodoPage(page)
+    todo.goto()
+    return todo
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     pytest_html = item.config.pluginmanager.getplugin("html")
     outcome = yield
-    screen_file = ''
     report = outcome.get_result()
     extra = getattr(report, "extra", [])
 

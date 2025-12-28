@@ -1,13 +1,9 @@
 from playwright.sync_api import expect
-from pages.TodoPage import TodoPage
 from utils.data_reader import test_data
 
 
 # 26
-def test_header_text_and_styling(page):
-    todo = TodoPage(page)
-    todo.goto()
-
+def test_header_text_and_styling(website_setup,page):
     header = page.locator("header h1")
 
     expect(header).to_have_text("todos")
@@ -15,35 +11,25 @@ def test_header_text_and_styling(page):
 
 
 # 27
-def test_input_placeholder_text(page, test_data):
-    todo = TodoPage(page)
-    todo.goto()
+def test_input_placeholder_text(website_setup, test_data):
+    todo = website_setup
 
-    expect(todo.todo_input).to_have_attribute(
-        "placeholder",
-        test_data["uiValidation"]["placeholderText"]
-    )
+    expect(todo.todo_input).to_have_attribute("placeholder",test_data["uiValidation"]["placeholderText"])
 
 # 28
-def test_footer_visibility_rules(page):
-    todo = TodoPage(page)
-    todo.goto()
+def test_footer_visibility_rules(website_setup,page):
+    todo = website_setup
 
     footer = page.locator("footer.footer")
-
-    # Todo footer hidden initially
     expect(footer).not_to_be_visible()
 
     todo.addTodo("Task 1")
-
-    # Todo footer visible after adding todo
     expect(footer).to_be_visible()
 
 
 # 29
-def test_clear_completed_button(page, test_data):
-    todo = TodoPage(page)
-    todo.goto()
+def test_clear_completed_button(website_setup, test_data):
+    todo = website_setup
 
     todo.addTodo(test_data["addTodo"]["multiple"][0])
     todo.toggleTodo(0)
@@ -51,9 +37,8 @@ def test_clear_completed_button(page, test_data):
     expect(todo.clear_completed_button).to_be_visible()
 
 # 30
-def test_checkbox_interaction(page, test_data):
-    todo = TodoPage(page)
-    todo.goto()
+def test_checkbox_interaction(website_setup,test_data):
+    todo = website_setup
 
     todo.addTodo(test_data["addTodo"]["multiple"][1])
 
@@ -62,35 +47,28 @@ def test_checkbox_interaction(page, test_data):
     assert todo.isTodoCompleted(0)
 
 # 31
-def test_hover_effect_delete_button(page, test_data):
-    todo = TodoPage(page)
-    todo.goto()
+def test_hover_effect_delete_button(website_setup,test_data):
+    todo = website_setup
 
     todo.addTodo(test_data["deleteText"]["deleteHover"])
 
     item = todo.todo_items.nth(0)
     delete_button = item.locator(".destroy")
 
-    # Hover over todo item
     item.hover()
-
-    # Delete button should be visible
     expect(delete_button).to_be_visible()
 
 # 32
-def test_tab_navigation(page):
-    todo = TodoPage(page)
-    todo.goto()
+def test_tab_navigation(website_setup):
+    todo = website_setup
 
-    # Input should be focusable
     todo.todo_input.focus()
     expect(todo.todo_input).to_be_focused()
 
 
 # 33
-def test_input_field_behavior(page):
-    todo = TodoPage(page)
-    todo.goto()
+def test_input_field_behavior(website_setup,page):
+    todo = website_setup
 
     todo.todo_input.focus()
     expect(todo.todo_input).to_be_focused()
