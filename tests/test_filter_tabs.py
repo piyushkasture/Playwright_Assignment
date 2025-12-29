@@ -1,3 +1,4 @@
+from playwright.sync_api import expect
 from utils.data_reader import test_data
 
 # 17
@@ -9,12 +10,16 @@ def test_view_all_todos(website_setup,test_data):
     todo.toggleTodo(1)
 
     todo.clickAllTab()
+
+    expect(todo.all_tab).to_have_attribute("class", "selected")
     assert todo.getActiveTodoCount() == 1
 
 # 18
 def test_all_tab_selected_by_default(website_setup, test_data):
     todo = website_setup
     todo.addTodo(test_data["addTodo"]["single"]["text"])
+
+    expect(todo.all_tab).to_have_attribute("class", "selected")
     assert todo.isAllTabSelected()
 
 # 19
@@ -25,7 +30,6 @@ def test_counter_shows_total_active_items(website_setup, test_data):
         todo.addTodo(item)
 
     todo.toggleTodo(1)
-
     assert todo.getActiveTodoCount() == 2
 
 
@@ -39,6 +43,7 @@ def test_filter_shows_only_active_todos(website_setup, test_data):
 
     todo.clickActiveTab()
 
+    expect(todo.active_tab).to_have_attribute("class", "selected")
     assert todo.getActiveTodoCount() == 1
 
 
@@ -50,7 +55,6 @@ def test_active_todo_counter(website_setup, test_data):
         todo.addTodo(item)
 
     todo.toggleTodo(1)
-
     assert todo.getActiveTodoCount() == 2
 
 # 22
@@ -63,6 +67,7 @@ def test_switch_to_active_tab(website_setup, test_data):
 
     todo.clickActiveTab()
 
+    expect(todo.active_tab).to_have_attribute("class", "selected")
     assert todo.getTotalTodoCount() == 1
     assert todo.getTodoText(0) == "Active Task"
 
@@ -77,6 +82,7 @@ def test_completed_tab_shows_only_completed(website_setup, test_data):
 
     todo.clickCompletedTab()
 
+    expect(todo.completed_tab).to_have_attribute("class", "selected")
     assert todo.getTotalTodoCount() == 1
     assert todo.isTodoCompleted(0)
 
@@ -100,14 +106,17 @@ def test_switch_between_tabs(website_setup, test_data):
     todo.toggleTodo(1)
 
     todo.clickActiveTab()
-
     assert todo.getTodoText(0) == "Task 1"
 
     todo.clickCompletedTab()
+
     assert todo.getTotalTodoCount() == 1
     assert todo.isTodoCompleted(0)
 
     todo.clickAllTab()
+
+    # Verify all tab is selected
+    expect(todo.all_tab).to_have_attribute("class", "selected")
     assert todo.getTotalTodoCount() == 2
 
 

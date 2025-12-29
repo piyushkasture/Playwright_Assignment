@@ -1,3 +1,4 @@
+from playwright.sync_api import expect
 from utils.data_reader import test_data
 
 # 1
@@ -7,6 +8,9 @@ def test_add_single_todo_item(website_setup, test_data):
     todo.addTodo(test_data["addTodo"]["single"]["text"])
     assert todo.getActiveTodoCount() == 1
 
+    expect(todo.todo_input).not_to_be_disabled()
+    expect(todo.todo_items.nth(0)).to_have_attribute("data-testid", "todo-item")
+
 # 2
 def test_add_multiple_todo_items(website_setup, test_data):
     todo = website_setup
@@ -15,6 +19,10 @@ def test_add_multiple_todo_items(website_setup, test_data):
         todo.addTodo(item)
 
     assert todo.getActiveTodoCount() == len(test_data["addTodo"]["multiple"])
+
+    for i in range(len(test_data["addTodo"]["multiple"])):
+        checkbox = todo.todo_items.nth(i).locator(".toggle")
+        expect(checkbox).not_to_be_checked()
 
 # 3
 def test_add_todo_with_special_character(website_setup, test_data):
@@ -46,8 +54,13 @@ def test_mark_single_todo_complete(website_setup, test_data):
     todo = website_setup
 
     todo.addTodo(test_data["addTodo"]["single"]["text"])
+
+    checkbox = todo.todo_items.nth(0).locator(".toggle")
+    expect(checkbox).not_to_be_checked()
+    
     todo.toggleTodo(test_data["toggleTodo"]["complete"]["index"])
 
+    expect(checkbox).to_be_checked()
     assert todo.isTodoCompleted(0)
 
 
@@ -61,6 +74,8 @@ def test_mark_multiple_todos_complete(website_setup, test_data):
     todo.toggleTodo(0)
     todo.toggleTodo(1)
 
+    expect(todo.todo_items.nth(0).locator(".toggle")).to_be_checked()
+    expect(todo.todo_items.nth(1).locator(".toggle")).to_be_checked()
     assert todo.isTodoCompleted(0)
     assert todo.isTodoCompleted(1)
 
@@ -70,8 +85,14 @@ def test_unmark_completed_todo(website_setup, test_data):
     todo = website_setup
 
     todo.addTodo(test_data["addTodo"]["single"]["text"])
+    
+    checkbox = todo.todo_items.nth(0).locator(".toggle")
+    
     todo.toggleTodo(0)
+    expect(checkbox).to_be_checked()
+    
     todo.toggleTodo(0)
+    expect(checkbox).not_to_be_checked()
 
     assert not todo.isTodoCompleted(0)
 
@@ -131,7 +152,7 @@ def test_edit_to_empty_text(website_setup, test_data):
 
     assert todo.getActiveTodoCount() == 0
 
-# ---------------- TC014 ----------------
+#14
 def test_delete_single_todo(website_setup, test_data):
     todo = website_setup
 
