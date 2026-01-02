@@ -145,6 +145,8 @@ class TodoPage():
             print(f"Exception while editing item: {e}")
 
     def getTotalTodoCount(self):
-        return self.todo_items.count()
-
+        try:
+            return self.todo_items.count()
+        except Exception as e:
+            print(f"Exception while counting todo: {e}")
 
